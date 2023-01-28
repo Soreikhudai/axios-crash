@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+         .bodyMain {
+           height:100%;
+           width:100%;
+           display:flex;
+           justify-content: center;
+           align-items:center;
+        }
+        .main {
+            height:500px;
+            width:500px;
+            background-color: grey;
+            border: 3px solid black;
+            border-radius: 10px;
+            margin-top: 50px;
+         
+        }
+        .header1 {
+            background-color: black;
+            height: 70px;
+            text-align: center;
+            padding-top:25px;
+
+            
+            
+        }
+        .header2
+        {
+            background-color:black;
+            color: white;
+            
+        }
+        .form1
+        {
+            justify-content: center;
+            align-items:center;
+            padding-left: 155px;
+            margin-top: 30px;
+           
+            
+        }
+        .button {
+            background-color: blue;
+            color:white;
+            border-radius:5px;
+            padding-top: 6px;
+            padding-bottom: 6px;
+            padding-left: 6px;
+            padding-right: 6px;
+            font-size: 15px;
+            border: 3px solid rgb(83, 4, 4);
+            transition:opacity 0.15s;
+            transition: background-color 0.1s, color 0.1s;
+            box-shadow: 5px 5px 10px black;
+
+        }
+        .button:hover {
+          background-color: yellow;
+          color:black;
+          font-style:solid;
+          font-weight: bold;
+          transition: background-color 0.1s, color 0.1s;
+          border:3px solid green;
+          transition:opacity 0.15s;
+          
+        }
+        .inputName {
+               border-radius:5px;
+               height:25px;
+               width:200px;
+               border: 3px solid rgb(6, 73, 6);
+               color:blue;
+               box-shadow: 5px 5px 10px black;
+        }
+        .inputName:hover {
+                   border: 3px solid black;
+                   box-shadow: 5px 5px 10px black;
+        }
+        .inputEmail {
+          border-radius:5px;
+          height:25px;
+          width:200px;
+          border: 3px solid green;
+          color:blue;
+          box-shadow: 5px 5px 10px black;
+   }
+   .inputEmail:hover {
+              border: 3px solid black;
+              box-shadow: 5px 5px 10px black;
+   }
+   .inputNumber {
+    border-radius:5px;
+    height:25px;
+    width:200px;
+    border: 3px solid green;
+    color:blue;
+    box-shadow: 5px 5px 10px black;
+}
+.inputNumber:hover {
+        border: 3px solid black;
+        box-shadow: 5px 5px 10px black;
+}
+
+        
+    </style>
+</head>
+
+
+<body class="bodyMain"> 
+    
+    <div class="main"> 
+
+    <header class="header1">
+       <h2 class="header2"> Registration Form:</h2>
+    </header>
+    <form  class="form1" onsubmit="save(event)">
+    <label>Name:</label><br/>
+    <input id="nameInputTag" class= "inputName" type="text" name="username" placeholder="write your name here" required><br/><br/>
+    <label>Email:</label><br/>
+    <input id="emailInputTag" class="inputEmail" type="email" name="emailId" placeholder="your email" required><br/><br/>
+    <label>Phone no:</label><br/>
+    <input id="numberInputTag" class="inputNumber" type="number" name="phonenumber" placeholder="your phone number" required><br/><br/>
+    <button class="button">submit</button>
+    </form><br/><br/><br/><br/><br/><br/><br/>
+    <ul id="listOfItems"></ul>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"></script>
+    <script>
+        function save(event){
+    event.preventDefault();
+    const name=event.target.username.value;
+    const email=event.target.emailId.value;
+    const phonenumber=event.target.phonenumber.value;
+    const obj={
+      name,
+      email,
+      phonenumber
+    };
+    axios.post("https://crudcrud.com/api/34a7baf308d44b1ba42bfd7e47b20ef4/registration", obj)
+    .then((response) =>{
+        displayInScreen(response.data);
+    })
+    .catch((err)=>{
+        document.body.innerHTML=document.body.innerHTM + "<h3> something went wrong</h3>"
+        console.log(err)
+    })
+    // localStorage.setItem(obj.email, JSON.stringify(obj))
+    //  displayInScreen(obj);
+     function displayInScreen(obj){
+    const parentEle=document.getElementById("listOfItems")
+    const childEle=document.createElement("li")
+    childEle.textContent= obj.name + ' - ' + obj.email + ' - ' + obj.phonenumber;
+     const deleteBtn=document.createElement("input")
+     deleteBtn.style.backgroundColor="red";
+     deleteBtn.type="button";
+     deleteBtn.value="delete";
+     deleteBtn.onclick=()=>{
+      localStorage.removeItem(obj.email)
+      parentEle.removeChild(childEle)
+     }
+    const editBtn= document.createElement("input");
+    editBtn.style.backgroundColor="blue";
+    editBtn.type="buttom";
+    editBtn.value="edit"
+    editBtn.onclick=()=>{
+      localStorage.removeItem(obj.email)
+      parentEle.removeChild(childEle)
+      document.getElementById('nameInputTag') .value=obj.name;
+      document.getElementById('emailInputTag') .value=obj.email;
+      document.getElementById('numberInputTag') .value=obj.phonenumber;
+    
+    }
+     childEle.appendChild(deleteBtn)
+     childEle.appendChild(editBtn)
+    parentEle.appendChild(childEle);
+     }
+    
+    }
+    </script>
+    
+</body>
+</html>
