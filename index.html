@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-         .bodyMain {
+        .bodyMain {
            height:100%;
            width:100%;
            display:flex;
@@ -131,59 +131,8 @@
     </form><br/><br/><br/><br/><br/><br/><br/>
     <ul id="listOfItems"></ul>
     </div>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.5/axios.min.js"></script>
-    <script>
-        function save(event){
-    event.preventDefault();
-    const name=event.target.username.value;
-    const email=event.target.emailId.value;
-    const phonenumber=event.target.phonenumber.value;
-    const obj={
-      name,
-      email,
-      phonenumber
-    };
-    axios.post("https://crudcrud.com/api/34a7baf308d44b1ba42bfd7e47b20ef4/registration", obj)
-    .then((response) =>{
-        displayInScreen(response.data);
-    })
-    .catch((err)=>{
-        document.body.innerHTML=document.body.innerHTM + "<h3> something went wrong</h3>"
-        console.log(err)
-    })
-    // localStorage.setItem(obj.email, JSON.stringify(obj))
-    //  displayInScreen(obj);
-     function displayInScreen(obj){
-    const parentEle=document.getElementById("listOfItems")
-    const childEle=document.createElement("li")
-    childEle.textContent= obj.name + ' - ' + obj.email + ' - ' + obj.phonenumber;
-     const deleteBtn=document.createElement("input")
-     deleteBtn.style.backgroundColor="red";
-     deleteBtn.type="button";
-     deleteBtn.value="delete";
-     deleteBtn.onclick=()=>{
-      localStorage.removeItem(obj.email)
-      parentEle.removeChild(childEle)
-     }
-    const editBtn= document.createElement("input");
-    editBtn.style.backgroundColor="blue";
-    editBtn.type="buttom";
-    editBtn.value="edit"
-    editBtn.onclick=()=>{
-      localStorage.removeItem(obj.email)
-      parentEle.removeChild(childEle)
-      document.getElementById('nameInputTag') .value=obj.name;
-      document.getElementById('emailInputTag') .value=obj.email;
-      document.getElementById('numberInputTag') .value=obj.phonenumber;
-    
-    }
-     childEle.appendChild(deleteBtn)
-     childEle.appendChild(editBtn)
-    parentEle.appendChild(childEle);
-     }
-    
-    }
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.2.6/axios.min.js"></script>
+    <script src="main.js"></script>
     
 </body>
 </html>
