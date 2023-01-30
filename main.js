@@ -45,20 +45,36 @@ function showUserInScreen(obj) {
     childEle.textContent = obj.name + ' - ' + obj.email + ' - ' + obj.phoneNo;
     parentEle.appendChild(childEle)
 
-const deleteBtn=document.createElement("input")
-deleteBtn.type="button"
-deleteBtn.value="delete"
-childEle.appendChild(deleteBtn)
-deleteBtn.onclick=()=>{
-    parentEle.removeChild(childEle)
-    axios.delete(`https://crudcrud.com/api/2ef924f8538544dfb8cc331e5d85e62d/data/${obj._id}`)
-    .then((response) => {
+    const deleteBtn = document.createElement("input")
+    deleteBtn.type = "button"
+    deleteBtn.value = "delete"
+    childEle.appendChild(deleteBtn)
+    deleteBtn.onclick = () => {
 
-    })
-    .catch((err) => {
-        console.log(err)
-    })
-}
+        axios.delete(`https://crudcrud.com/api/2ef924f8538544dfb8cc331e5d85e62d/data/${obj._id}`)
+            .then((response) => {
+                parentEle.removeChild(childEle)
+            })
+            .catch((err) => {
+                console.log(err)
+            })
+    }
+    const editBtn = document.createElement("input")
+    editBtn.type = "button"
+    editBtn.value = "Edit"
+    childEle.appendChild(editBtn)
+    editBtn.onclick = () => {
+        axios.delete(`https://crudcrud.com/api/2ef924f8538544dfb8cc331e5d85e62d/data/${obj._id}`)
+            .then((response) => {
+                parentEle.removeChild(childEle)
+                document.getElementById('nameInputTag').value = obj.name
+                document.getElementById('emailInputTag').value = obj.email
+                document.getElementById('phoneNoInputTag').value = obj.phoneNo
+            })
+            .catch((err)=>{
+                console.log(err)
+            })
+    }
 }
 
 
